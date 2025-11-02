@@ -322,17 +322,40 @@
 // export default api;
 
 
+// import axios from "axios";
+
+// // const baseURL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
+// const baseURL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
+// console.log("🌍 Using API Base URL:", baseURL);
+
+// const api = axios.create({
+//   baseURL,
+//   headers: { "Content-Type": "application/json" },
+//   withCredentials: true,
+//   timeout: 15000,
+// });
+
+// api.interceptors.request.use(
+//   (config) => {
+//     const token = localStorage.getItem("token");
+//     if (token) config.headers.Authorization = `Bearer ${token}`;
+//     return config;
+//   },
+//   (error) => Promise.reject(error)
+// );
+
+// export default api;
+
+
 import axios from "axios";
 
-// const baseURL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
-const baseURL = process.env.REACT_APP_API_URL || "http://localhost:5000";
-
+const baseURL = process.env.REACT_APP_API_URL || "http://localhost:5000/api";
 console.log("🌍 Using API Base URL:", baseURL);
 
 const api = axios.create({
   baseURL,
   headers: { "Content-Type": "application/json" },
-  withCredentials: true,
   timeout: 15000,
 });
 
