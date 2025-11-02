@@ -678,11 +678,33 @@ const getAllowedOrigins = () => {
   return allowed.filter(Boolean);
 };
 
-const allowedOrigins = getAllowedOrigins();
+// const allowedOrigins = getAllowedOrigins();
+
+// const corsOptions = {
+//   origin: function (origin, callback) {
+//     if (!origin) return callback(null, true); // Allow Postman/mobile
+//     if (allowedOrigins.includes(origin)) {
+//       console.log('✅ CORS Allowed:', origin);
+//       callback(null, true);
+//     } else {
+//       console.warn('🚫 CORS Blocked:', origin);
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   credentials: true,
+// };
+
+
+const allowedOrigins = [
+  'https://clean-eco-campus.vercel.app', // your frontend
+  'http://localhost:3000',                // local dev
+];
 
 const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin) return callback(null, true); // Allow Postman/mobile
+    // Allow requests with no origin (Postman, mobile apps)
+    if (!origin) return callback(null, true);
+
     if (allowedOrigins.includes(origin)) {
       console.log('✅ CORS Allowed:', origin);
       callback(null, true);
@@ -692,7 +714,14 @@ const corsOptions = {
     }
   },
   credentials: true,
+  methods: ['GET','POST','PUT','DELETE','PATCH','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization','x-auth-token'],
+  exposedHeaders: ['x-auth-token','Content-Length'],
+  preflightContinue: false,
 };
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // enable preflight requests
 
 app.use(
   helmet({
